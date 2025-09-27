@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios JavaScript Básicos</title>
+</head>
+<body>
+    <h1>Resultados de los ejercicios de JavaScript</h1>
+
+    <h2>1. Cubos de números pares</h2>
+    <div id="cubosPares"></div>
+
+    <h2>2. Empleados por departamento</h2>
+    <div id="empleadosDept"></div>
+
+    <script>
+        // Ejercicio 1: Cubos de números pares
+        const numeros = [3, 6, 9, 12, 15, 18];
+        const cubosPares = numeros
+            .filter(num => num % 2 === 0)
+            .map(num => num ** 3);
+
+        document.getElementById("cubosPares").innerText = cubosPares.join(", ");
+
+        // Ejercicio 2: Empleados por departamento
+        const empleados = [
+            { nombre: "Ana", departamento: "Ventas" },
+            { nombre: "Luis", departamento: "IT" },
+            { nombre: "Marta", departamento: "Ventas" },
+            { nombre: "Pedro", departamento: "IT" },
+            { nombre: "Sofía", departamento: "Marketing" }
+        ];
+
+        const empleadosPorDepartamento = empleados.reduce((acc, empleado) => {
+            const dept = empleado.departamento;
+            if (!acc[dept]) acc[dept] = [];
+            acc[dept].push(empleado.nombre);
+            return acc;
+        }, {});
+
+        // Mostrar resultados en HTML
+        const divEmpleados = document.getElementById("empleadosDept");
+        for (const dept in empleadosPorDepartamento) {
+            const nombres = empleadosPorDepartamento[dept].join(", ");
+            const p = document.createElement("p");
+            p.innerText = `${dept}: ${nombres}`;
+            divEmpleados.appendChild(p);
+        }
+    </script>
+</body>
+</html>
