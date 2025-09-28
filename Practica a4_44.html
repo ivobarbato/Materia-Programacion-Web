@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica a4_44 - Aplanar matriz 3D</title>
+</head>
+<body>
+  <h1>Práctica a4_44: Matrices en JavaScript</h1>
+
+  <h2>Matriz 3D original</h2>
+  <div id="matriz"></div>
+
+  <h2>Resultados</h2>
+  <p><b>Matriz aplanada:</b> <span id="aplanada"></span></p>
+  <p><b>Arreglo ordenado:</b> <span id="ordenado"></span></p>
+
+  <script>
+    // Matriz tridimensional de ejemplo
+    const matriz3D = [
+      [
+        [3, 9, 1],
+        [7, 2, 5]
+      ],
+      [
+        [8, 6, 4],
+        [10, 12, 11]
+      ]
+    ];
+
+    // Mostrar la matriz 3D original
+    document.getElementById("matriz").innerText = JSON.stringify(matriz3D);
+
+    // 1. Aplanar matriz 3D
+    const aplanada = matriz3D.flat(2); // nivel 2 porque es 3D
+
+    // 2. Ordenar el arreglo
+    const ordenada = [...aplanada].sort((a, b) => a - b);
+
+    // Mostrar resultados
+    document.getElementById("aplanada").innerText = `[ ${aplanada.join(", ")} ]`;
+    document.getElementById("ordenado").innerText = `[ ${ordenada.join(", ")} ]`;
+  </script>
+</body>
+</html>
