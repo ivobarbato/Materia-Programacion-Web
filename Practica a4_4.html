@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica a4_4 - Arreglos en JavaScript</title>
+</head>
+<body>
+  <h1>Práctica a4_4: Arreglos en JavaScript</h1>
+  <h2>Buscar el número más repetido en un arreglo</h2>
+
+  <div id="arreglo"></div>
+  <div id="resultado"></div>
+
+  <script>
+    // Arreglo de ejemplo
+    const numeros = [3, 6, 9, 3, 12, 15, 3, 6, 18, 6, 6, 9];
+
+    // Mostrar el arreglo original
+    document.getElementById("arreglo").innerText = "Arreglo: " + numeros.join(", ");
+
+    // Función para encontrar el número más repetido
+    function masRepetido(arr) {
+      const conteo = {};
+      let maxNum = arr[0];
+      let maxCant = 0;
+
+      for (let num of arr) {
+        conteo[num] = (conteo[num] || 0) + 1;
+
+        if (conteo[num] > maxCant) {
+          maxCant = conteo[num];
+          maxNum = num;
+        }
+      }
+
+      return { numero: maxNum, repeticiones: maxCant };
+    }
+
+    const resultado = masRepetido(numeros);
+
+    document.getElementById("resultado").innerText =
+      `El número más repetido es ${resultado.numero} y aparece ${resultado.repeticiones} veces.`;
+  </script>
+</body>
+</html>
