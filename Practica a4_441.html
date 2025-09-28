@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica a4_441 - Objetos en JavaScript</title>
+</head>
+<body>
+  <h1>Práctica a4_441: Objetos en JavaScript</h1>
+
+  <h2>1. Objeto Libro</h2>
+  <div id="libro"></div>
+
+  <h2>2. Objeto Cuenta Bancaria</h2>
+  <div id="cuenta"></div>
+
+  <h2>3. Objeto Rectángulo</h2>
+  <div id="rectangulo"></div>
+
+  <script>
+    // 1. Objeto Libro
+    const libro = {
+      titulo: "Cien años de soledad",
+      autor: "Gabriel García Márquez",
+      anio: 1967,
+      descripcion: function() {
+        return `${this.titulo}, escrito por ${this.autor} en ${this.anio}`;
+      }
+    };
+
+    document.getElementById("libro").innerText = libro.descripcion();
+
+    // 2. Objeto Cuenta Bancaria
+    const cuentaBancaria = {
+      saldo: 1000,
+      titular: "Juan Pérez",
+      depositar: function(monto) {
+        this.saldo += monto;
+        return `Depósito de $${monto}. Saldo actual: $${this.saldo}`;
+      },
+      retirar: function(monto) {
+        if (monto > this.saldo) {
+          return "Fondos insuficientes.";
+        }
+        this.saldo -= monto;
+        return `Retiro de $${monto}. Saldo actual: $${this.saldo}`;
+      }
+    };
+
+    let movimientos = [];
+    movimientos.push(cuentaBancaria.depositar(500));
+    movimientos.push(cuentaBancaria.retirar(300));
+    movimientos.push(cuentaBancaria.retirar(1500)); // Caso de fondos insuficientes
+
+    document.getElementById("cuenta").innerText = movimientos.join(" | ");
+
+    // 3. Objeto Rectángulo
+    const rectangulo = {
+      ancho: 10,
+      alto: 5,
+      area: function() {
+        return this.ancho * this.alto;
+      },
+      perimetro: function() {
+        return 2 * (this.ancho + this.alto);
+      }
+    };
+
+    document.getElementById("rectangulo").innerText = 
+      `Área: ${rectangulo.area()} | Perímetro: ${rectangulo.perimetro()}`;
+  </script>
+</body>
+</html>
