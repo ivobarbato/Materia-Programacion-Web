@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modelo de Clases – Vehículos</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #22c55e;
+      --accent-2: #60a5fa;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 800px at 10% 10%, #111827 0, #0b1022 60%, #060912 100%), var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.45;
+      min-height: 100vh;
+      padding-bottom: 4rem;
+    }
+    header { padding: 2rem 1rem 0.5rem; max-width: 1100px; margin: 0 auto; }
+    h1 { margin: 0 0 0.25rem; font-weight: 800; letter-spacing: -0.02em; }
+    p.lead { color: var(--muted); margin-top: 0; }
+
+    .wrap { max-width: 1100px; margin: 1rem auto; padding: 0 1rem; display: grid; grid-template-columns: 1fr 380px; gap: 1rem; }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+    .card h2 { margin: 0; padding: 1rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .card .body { padding: 1rem 1.25rem; }
+
+    .row { display: flex; gap: .5rem; flex-wrap: wrap; }
+    button { background: var(--card); border: 1px solid rgba(255,255,255,.12); color: var(--text); padding: .6rem .9rem; border-radius: 12px; cursor: pointer; transition: .2s transform, .2s background, .2s border-color; font-weight: 600; }
+    button:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.25); }
+    button.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); border: none; color: #06100a; }
+    code, pre { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: .75rem; display: block; overflow: auto; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+    .muted { color: var(--muted); }
+    footer { position: fixed; left: 0; right: 0; bottom: 0; padding: .6rem 1rem; color: var(--muted); text-align: center; background: linear-gradient(180deg, transparent, rgba(0,0,0,.35)); backdrop-filter: blur(6px); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Modelo de clases – Vehículos</h1>
+    <p class="lead">Implementación en ES2023 con herencia, composición y agregación.</p>
+  </header>
+
+  <div class="wrap">
+    <section class="card">
+      <h2>Acciones</h2>
+      <div class="body">
+        <div class="row">
+          <button id="btnDemo" class="primary">Crear demo completa</button>
+          <button id="btnAcelerar">Acelerar Auto</button>
+          <button id="btnFrenar">Frenar Camión</button>
+          <button id="btnComparar">Comparar velocidades</button>
+        </div>
+        <p class="muted" style="margin-top:.75rem">Abre la consola del navegador para ver objetos y mensajes (F12 o Ctrl+Shift+I).</p>
+      </div>
+    </section>
+
+    <aside class="card">
+      <h2>Estado</h2>
+      <div class="body">
+        <div id="estado" class="grid"></div>
+      </div>
+    </aside>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <h2>Salida</h2>
+      <div class="body">
+        <pre id="out"><em>Esperando acciones…</em></pre>
+      </div>
+    </section>
+  </div>
+
+  <footer>Por Ivo Barbato :3</footer>
+
+  <!-- Archivo JS externo -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
