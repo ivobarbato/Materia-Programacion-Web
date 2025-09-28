@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica a4_41 - Arreglos en JavaScript</title>
+</head>
+<body>
+  <h1>Práctica a4_41: Arreglos en JavaScript</h1>
+
+  <h2>Datos originales</h2>
+  <div id="original"></div>
+
+  <h2>1. Estudiantes que aprobaron (nota ≥ 6)</h2>
+  <div id="aprobados"></div>
+
+  <h2>2. Arreglo original ordenado por nota (mayor a menor)</h2>
+  <div id="ordenados"></div>
+
+  <h2>3. Promedio general de las notas</h2>
+  <div id="promedio"></div>
+
+  <script>
+    const estudiantes = [
+      { nombre: "Ana", nota: 8 },
+      { nombre: "Luis", nota: 5 },
+      { nombre: "Carla", nota: 9 },
+      { nombre: "Juan", nota: 6 },
+      { nombre: "Pedro", nota: 4 }
+    ];
+
+    // Mostrar datos originales
+    document.getElementById("original").innerText = 
+      estudiantes.map(e => `${e.nombre} (${e.nota})`).join(", ");
+
+    // 1. Estudiantes que aprobaron
+    const aprobados = estudiantes
+      .filter(e => e.nota >= 6)
+      .map(e => e.nombre);
+
+    document.getElementById("aprobados").innerText = aprobados.join(", ");
+
+    // 2. Ordenar arreglo original por nota de mayor a menor
+    const ordenados = [...estudiantes].sort((a, b) => b.nota - a.nota);
+
+    document.getElementById("ordenados").innerText =
+      ordenados.map(e => `${e.nombre} (${e.nota})`).join(", ");
+
+    // 3. Calcular promedio general
+    const sumaNotas = estudiantes.reduce((acc, e) => acc + e.nota, 0);
+    const promedio = (sumaNotas / estudiantes.length).toFixed(2);
+
+    document.getElementById("promedio").innerText = promedio;
+  </script>
+</body>
+</html>
