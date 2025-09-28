@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica a4_42 - Matrices en JavaScript</title>
+</head>
+<body>
+  <h1>Práctica a4_42: Matrices en JavaScript</h1>
+
+  <h2>Matriz original</h2>
+  <div id="matriz"></div>
+
+  <h2>Resultados</h2>
+  <p><b>Suma de filas:</b> <span id="sumaFilas"></span></p>
+  <p><b>Suma de columnas:</b> <span id="sumaColumnas"></span></p>
+
+  <script>
+    const matriz = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9]
+    ];
+
+    // Mostrar matriz original
+    const divMatriz = document.getElementById("matriz");
+    matriz.forEach(fila => {
+      const p = document.createElement("p");
+      p.innerText = fila.join("  ");
+      divMatriz.appendChild(p);
+    });
+
+    // 1. Suma de cada fila
+    const sumaFilas = matriz.map(fila => fila.reduce((acc, val) => acc + val, 0));
+
+    // 2. Suma de cada columna
+    const numColumnas = matriz[0].length;
+    const sumaColumnas = Array(numColumnas).fill(0);
+
+    matriz.forEach(fila => {
+      fila.forEach((valor, i) => {
+        sumaColumnas[i] += valor;
+      });
+    });
+
+    // Mostrar resultados
+    document.getElementById("sumaFilas").innerText = `[ ${sumaFilas.join(", ")} ]`;
+    document.getElementById("sumaColumnas").innerText = `[ ${sumaColumnas.join(", ")} ]`;
+  </script>
+</body>
+</html>
