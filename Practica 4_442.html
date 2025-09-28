@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica a4_442 - Funciones de orden superior</title>
+</head>
+<body>
+  <h1>Práctica a4_442: Funciones de orden superior</h1>
+
+  <h2>Arreglo original</h2>
+  <div id="original"></div>
+
+  <h2>Arreglo transformado</h2>
+  <div id="transformado"></div>
+
+  <script>
+    // Arreglo inicial
+    const usuarios = [
+      { nombre: "ana", clave: "abc123" },
+      { nombre: "luis", clave: "qwerty" },
+      { nombre: "marta", clave: "12345" }
+    ];
+
+    // Mostrar arreglo original
+    document.getElementById("original").innerText = 
+      JSON.stringify(usuarios);
+
+    // Función para capitalizar
+    const capitalizar = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+    // Usamos map (función de orden superior) para transformar
+    const transformados = usuarios.map(user => ({
+      nombre: capitalizar(user.nombre),
+      clave: btoa(user.clave) // encriptar en base64
+    }));
+
+    // Mostrar arreglo transformado
+    document.getElementById("transformado").innerText = 
+      JSON.stringify(transformados);
+  </script>
+</body>
+</html>
