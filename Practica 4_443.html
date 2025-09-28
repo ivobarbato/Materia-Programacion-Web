@@ -5,31 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo List con Observer</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    #contenedor {
-      margin-top: 15px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      min-height: 100px;
-    }
-    .todo {
-      padding: 5px;
-      margin: 3px 0;
-      background: #f2f2f2;
-      border-radius: 4px;
-    }
-    #log {
-      margin-top: 20px;
-      padding: 10px;
-      border: 1px dashed gray;
-      background: #fafafa;
-      font-size: 14px;
-      max-height: 200px;
-      overflow-y: auto;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #contenedor { margin-top: 15px; padding: 10px; border: 1px solid #ccc; min-height: 100px; }
+    .todo { padding: 5px; margin: 3px 0; background: #f2f2f2; border-radius: 4px; display: flex; align-items: center; gap: 10px; }
+    .hecho { color: green; font-weight: bold; }
+    .no-hecho { color: red; font-weight: bold; }
+    #log { margin-top: 20px; padding: 10px; border: 1px dashed gray; background: #fafafa; font-size: 14px; max-height: 200px; overflow-y: auto; }
   </style>
 </head>
 <body>
@@ -57,7 +38,14 @@
           ? (m.addedNodes.length ? "Elemento agregado" : "Elemento eliminado")
           : "Cambio de atributo";
 
-        const mensaje = `Cambio detectado: ${tipoCambio}`;
+        // Mostrar nombre de la tarea si existe
+        let nombreTarea = "";
+        if (m.addedNodes.length && m.addedNodes[0].querySelector) {
+          const span = m.addedNodes[0].querySelector("span");
+          if(span) nombreTarea = ` - Tarea: "${span.textContent}"`;
+        }
+
+        const mensaje = `Cambio detectado: ${tipoCambio}${nombreTarea}`;
         console.log(mensaje, m);
         
         const p = document.createElement("p");
@@ -67,7 +55,7 @@
     });
 
     // Observar el contenedor
-    observer.observe(contenedor, { childList: true, attributes: true });
+    observer.observe(contenedor, { childList: true, attributes: true, subtree: true });
 
     // Evento para agregar tareas
     btnAgregar.addEventListener("click", () => {
@@ -75,8 +63,29 @@
       if (texto !== "") {
         const nuevo = document.createElement("div");
         nuevo.className = "todo";
-        nuevo.textContent = texto;
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        const span = document.createElement("span");
+        span.textContent = texto + " ❌"; // Estado inicial: no hecho
+        span.classList.add("no-hecho");
+
+        // Cambiar estado al marcar/desmarcar
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) {
+            span.textContent = texto + " ✅";
+            span.classList.replace("no-hecho", "hecho");
+          } else {
+            span.textContent = texto + " ❌";
+            span.classList.replace("hecho", "no-hecho");
+          }
+        });
+
+        nuevo.appendChild(checkbox);
+        nuevo.appendChild(span);
         contenedor.appendChild(nuevo);
+
         input.value = "";
       }
     });
