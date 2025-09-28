@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List con Observer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #contenedor {
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      min-height: 100px;
+    }
+    .todo {
+      padding: 5px;
+      margin: 3px 0;
+      background: #f2f2f2;
+      border-radius: 4px;
+    }
+    #log {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px dashed gray;
+      background: #fafafa;
+      font-size: 14px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Todo List con Observer</h1>
+
+  <input type="text" id="inputTodo" placeholder="Escribe una tarea...">
+  <button id="btnAgregar">Agregar</button>
+
+  <h2>Lista de Tareas</h2>
+  <div id="contenedor"></div>
+
+  <h2>Registro de Cambios (Observer)</h2>
+  <div id="log"></div>
+
+  <script>
+    const contenedor = document.getElementById("contenedor");
+    const log = document.getElementById("log");
+    const input = document.getElementById("inputTodo");
+    const btnAgregar = document.getElementById("btnAgregar");
+
+    // Crear observer
+    const observer = new MutationObserver(mutaciones => {
+      mutaciones.forEach(m => {
+        const tipoCambio = m.type === "childList" 
+          ? (m.addedNodes.length ? "Elemento agregado" : "Elemento eliminado")
+          : "Cambio de atributo";
+
+        const mensaje = `Cambio detectado: ${tipoCambio}`;
+        console.log(mensaje, m);
+        
+        const p = document.createElement("p");
+        p.textContent = mensaje;
+        log.appendChild(p);
+      });
+    });
+
+    // Observar el contenedor
+    observer.observe(contenedor, { childList: true, attributes: true });
+
+    // Evento para agregar tareas
+    btnAgregar.addEventListener("click", () => {
+      const texto = input.value.trim();
+      if (texto !== "") {
+        const nuevo = document.createElement("div");
+        nuevo.className = "todo";
+        nuevo.textContent = texto;
+        contenedor.appendChild(nuevo);
+        input.value = "";
+      }
+    });
+  </script>
+</body>
+</html>
