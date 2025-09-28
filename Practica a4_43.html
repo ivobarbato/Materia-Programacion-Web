@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica a4_43 - Diagonales en Matrices</title>
+</head>
+<body>
+  <h1>Práctica a4_43: Matrices en JavaScript</h1>
+
+  <h2>Matriz original</h2>
+  <div id="matriz"></div>
+
+  <h2>Resultados</h2>
+  <p><b>Diagonal principal:</b> <span id="diagPrincipal"></span></p>
+  <p><b>Diagonal secundaria:</b> <span id="diagSecundaria"></span></p>
+  <p><b>Suma de diagonales:</b> <span id="sumaDiagonales"></span></p>
+
+  <script>
+    const matriz = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9]
+    ];
+
+    // Mostrar matriz original
+    const divMatriz = document.getElementById("matriz");
+    matriz.forEach(fila => {
+      const p = document.createElement("p");
+      p.innerText = fila.join("  ");
+      divMatriz.appendChild(p);
+    });
+
+    // Obtener diagonales
+    const n = matriz.length;
+    const diagonalPrincipal = [];
+    const diagonalSecundaria = [];
+
+    for (let i = 0; i < n; i++) {
+      diagonalPrincipal.push(matriz[i][i]);              // [1, 5, 9]
+      diagonalSecundaria.push(matriz[i][n - 1 - i]);     // [3, 5, 7]
+    }
+
+    // Calcular suma de ambas diagonales
+    const sumaDiagonales = [...diagonalPrincipal, ...diagonalSecundaria]
+      .reduce((acc, val) => acc + val, 0);
+
+    // Mostrar resultados
+    document.getElementById("diagPrincipal").innerText = `[ ${diagonalPrincipal.join(", ")} ]`;
+    document.getElementById("diagSecundaria").innerText = `[ ${diagonalSecundaria.join(", ")} ]`;
+    document.getElementById("sumaDiagonales").innerText = sumaDiagonales;
+  </script>
+</body>
+</html>
